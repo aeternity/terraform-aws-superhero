@@ -43,7 +43,7 @@ module "superhero-backend-postgres" {
   name     = local.rds_name
   username = "postgres"
   #should be handled as secret - working on it - TO DO
-  password = ""
+  password = var.postgres_passwd
   port     = 5432
 
   multi_az               = true

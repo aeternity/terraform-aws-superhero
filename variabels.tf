@@ -1,0 +1,2 @@
+variable "postgres_passwd" {}
+
