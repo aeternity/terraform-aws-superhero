@@ -29,6 +29,7 @@ module "superhero-backend-redis" {
   subnet_id             = data.terraform_remote_state.vpc.outputs.private_subnets[0]
   secondary_private_ips = ["10.0.1.11"]
   tags                  = local.redis_tags
+  vpc_security_group_ids = [module.superhero-backend-redis-sg.security_group_id]
 }
 
 resource "aws_volume_attachment" "superhero-backend-redis" {
