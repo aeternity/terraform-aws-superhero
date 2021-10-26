@@ -1,13 +1,13 @@
 locals {
-  redis_name       = "superhero-backend-redis"
-  redis_tags = merge({ "Name" : local.redis_name }, local.standard_tags)
+  backend_redis_name       = "superhero-backend-redis"
+  backend_redis_tags = merge({ "Name" : local.backend_redis_name }, local.standard_tags)
 }
 
 module "superhero-backend-redis-sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name        = local.redis_name
+  name        = local.backend_redis_name
   description = "Security group for Redis"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 
@@ -15,20 +15,20 @@ module "superhero-backend-redis-sg" {
   ingress_rules       = ["redis-tcp"]
   egress_rules        = ["all-all"]
 
-  tags = local.redis_tags
+  tags = local.backend_redis_tags
 }
 
 module "superhero-backend-redis" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "3.2.0"
 
-  name                  = local.redis_name
+  name                  = local.backend_redis_name
   key_name              = "temp"
   instance_type         = "t2.medium"
   ami                   = "ami-049dba36e59403eff"
   subnet_id             = data.terraform_remote_state.vpc.outputs.private_subnets[0]
   secondary_private_ips = ["10.0.1.11"]
-  tags                  = local.redis_tags
+  tags                  = local.backend_redis_tags
   vpc_security_group_ids = [module.superhero-backend-redis-sg.security_group_id]
 }
 
@@ -43,5 +43,5 @@ resource "aws_ebs_volume" "superhero-backend-redis" {
   # size should be configured per requirements for each environment, we have to choose and disk type
   size = 10
   type = "gp3"
-  tags = local.redis_tags
+  tags = local.backend_redis_tags
 }
