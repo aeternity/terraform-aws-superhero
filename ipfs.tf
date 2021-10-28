@@ -52,3 +52,11 @@ resource "aws_ebs_volume" "ipfs" {
   type = "gp3"
   tags = local.ipfs_tags
 }
+
+resource "aws_route53_record" "ipfs" {
+  zone_id = "Z8J0F7X8EN90Z"
+  name    = "ipfs.dev.aepps.com"
+  type    = "A"
+  ttl     = "300"
+  records = [module.ipfs.public_ip]
+}
