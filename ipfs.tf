@@ -34,7 +34,7 @@ module "ipfs" {
   instance_type          = "t2.medium"
   ami                    = "ami-0eda1419e30a5a080"
   subnet_id              = data.terraform_remote_state.vpc.outputs.public_subnets[0]
-  secondary_private_ips  = ["192.168.4.104"]
+  secondary_private_ips  = [var.ipfs_secondary_private_ips[terraform.workspace]]
   tags                   = local.ipfs_tags
   vpc_security_group_ids = [module.ipfs-sg.security_group_id]
 }

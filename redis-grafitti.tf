@@ -27,7 +27,7 @@ module "graffiti-redis" {
   instance_type          = "t2.medium"
   ami                    = "ami-049dba36e59403eff"
   subnet_id              = data.terraform_remote_state.vpc.outputs.private_subnets[0]
-  secondary_private_ips  = ["192.168.1.100"]
+  secondary_private_ips  = [var.redis_grafitti_secondary_private_ips[terraform.workspace]]
   tags                   = local.graffiti_redis_tags
   vpc_security_group_ids = [module.graffiti-redis-sg.security_group_id]
 }
