@@ -1,5 +1,5 @@
 locals {
-  ipfs_name = "ipfs"
+  ipfs_name = "ipfs-${terraform.workspace}"
   ipfs_tags = merge({ "Name" : local.ipfs_name }, local.standard_tags)
 }
 
@@ -34,7 +34,7 @@ module "ipfs" {
   instance_type          = "t2.medium"
   ami                    = "ami-0eda1419e30a5a080"
   subnet_id              = data.terraform_remote_state.vpc.outputs.public_subnets[0]
-  secondary_private_ips  = ["10.0.4.4"]
+  secondary_private_ips  = ["192.168.4.104"]
   tags                   = local.ipfs_tags
   vpc_security_group_ids = [module.ipfs-sg.security_group_id]
 }
@@ -55,7 +55,7 @@ resource "aws_ebs_volume" "ipfs" {
 
 resource "aws_route53_record" "ipfs" {
   zone_id = "Z8J0F7X8EN90Z"
-  name    = "ipfs.dev.aepps.com"
+  name    = "ipfs.${terraform.workspace}.aepps.com"
   type    = "A"
   ttl     = "300"
   records = [module.ipfs.public_ip]

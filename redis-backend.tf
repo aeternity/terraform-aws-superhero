@@ -1,5 +1,5 @@
 locals {
-  backend_redis_name       = "superhero-backend-redis"
+  backend_redis_name = "superhero-backend-redis-${terraform.workspace}"
   backend_redis_tags = merge({ "Name" : local.backend_redis_name }, local.standard_tags)
 }
 
@@ -11,7 +11,7 @@ module "superhero-backend-redis-sg" {
   description = "Security group for Redis"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 
-  ingress_cidr_blocks = ["10.0.0.0/16"]
+  ingress_cidr_blocks = [data.terraform_remote_state.vpc.outputs.vpc_cidr_block]
   ingress_rules       = ["redis-tcp"]
   egress_rules        = ["all-all"]
 
@@ -22,13 +22,13 @@ module "superhero-backend-redis" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "3.2.0"
 
-  name                  = local.backend_redis_name
-  key_name              = "temp"
-  instance_type         = "t2.medium"
-  ami                   = "ami-049dba36e59403eff"
-  subnet_id             = data.terraform_remote_state.vpc.outputs.private_subnets[0]
-  secondary_private_ips = ["10.0.1.11"]
-  tags                  = local.backend_redis_tags
+  name                   = local.backend_redis_name
+  key_name               = "temp"
+  instance_type          = "t2.medium"
+  ami                    = "ami-049dba36e59403eff"
+  subnet_id              = data.terraform_remote_state.vpc.outputs.private_subnets[0]
+  secondary_private_ips  = ["192.168.1.101"]
+  tags                   = local.backend_redis_tags
   vpc_security_group_ids = [module.superhero-backend-redis-sg.security_group_id]
 }
 

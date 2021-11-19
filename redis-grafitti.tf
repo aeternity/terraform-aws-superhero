@@ -1,5 +1,5 @@
 locals {
-  graffiti_redis_name = "graffiti-redis"
+  graffiti_redis_name = "graffiti-redis-${terraform.workspace}"
   graffiti_redis_tags = merge({ "Name" : local.graffiti_redis_name }, local.standard_tags)
 }
 
@@ -11,7 +11,7 @@ module "graffiti-redis-sg" {
   description = "Security group for Redis"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 
-  ingress_cidr_blocks = ["10.0.0.0/16"]
+  ingress_cidr_blocks = [data.terraform_remote_state.vpc.outputs.vpc_cidr_block]
   ingress_rules       = ["redis-tcp"]
   egress_rules        = ["all-all"]
 
@@ -27,7 +27,7 @@ module "graffiti-redis" {
   instance_type          = "t2.medium"
   ami                    = "ami-049dba36e59403eff"
   subnet_id              = data.terraform_remote_state.vpc.outputs.private_subnets[0]
-  secondary_private_ips  = ["10.0.1.13"]
+  secondary_private_ips  = ["192.168.1.100"]
   tags                   = local.graffiti_redis_tags
   vpc_security_group_ids = [module.graffiti-redis-sg.security_group_id]
 }

@@ -1,2 +1,3 @@
-variable "postgres_passwd" {}
-
+variable "postgres_passwd" {
+  type = map(any)
+}

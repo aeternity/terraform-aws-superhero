@@ -1,5 +1,5 @@
 locals {
-  rds_name      = "superhero"
+  rds_name      = "superhero-${terraform.workspace}"
   postgres_tags = merge({ "Name" : local.rds_name }, local.standard_tags)
 }
 
@@ -28,7 +28,7 @@ module "superhero-backend-postgres" {
   source  = "terraform-aws-modules/rds/aws"
   version = "3.4.0"
 
-  identifier = local.rds_name
+  identifier = "superhero${local.env_human}"
 
   engine               = "postgres"
   engine_version       = "12.8"
@@ -40,10 +40,10 @@ module "superhero-backend-postgres" {
   max_allocated_storage = 100
   storage_encrypted     = false
 
-  name     = local.rds_name
+  name     = "superhero${local.env_human}"
   username = "postgres"
   #should be handled as secret - working on it - TO DO
-  password = var.postgres_passwd
+  password = var.postgres_passwd[terraform.workspace]
   port     = 5432
 
   multi_az               = true
