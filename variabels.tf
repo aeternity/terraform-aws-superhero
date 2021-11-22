@@ -12,7 +12,7 @@ variable "ipfs_secondary_private_ips" {
 variable "redis_backend_secondary_private_ips" {
   default = {
     "dev" = "10.0.1.11"
-    "stg" = "192.168.1.101"
+    "stg" = "192.168.1.111"
   }
 }
 
