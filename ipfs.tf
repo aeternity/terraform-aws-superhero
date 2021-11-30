@@ -48,7 +48,7 @@ resource "aws_volume_attachment" "ipfs" {
 resource "aws_ebs_volume" "ipfs" {
   availability_zone = data.aws_availability_zones.available.names[0]
   # size should be configured per requirements for each environment, we have to choose and disk type
-  size = 50
+  size = 100
   type = "gp3"
   tags = local.ipfs_tags
 }

@@ -34,12 +34,13 @@ module "superhero-backend-postgres" {
   engine_version       = "12.8"
   family               = "postgres12"
   major_engine_version = "12"
-  instance_class       = "db.t2.small"
+  instance_class       = var.rds_instance_class[terraform.workspace]
 
   allocated_storage     = 20
   max_allocated_storage = 100
   storage_encrypted     = false
 
+  #rds name support only alphabet chars 
   name     = "superhero${local.env_human}"
   username = "postgres"
   #should be handled as secret - working on it - TO DO

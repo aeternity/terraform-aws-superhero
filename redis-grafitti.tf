@@ -41,7 +41,7 @@ resource "aws_volume_attachment" "graffiti-redis" {
 resource "aws_ebs_volume" "graffiti-redis" {
   availability_zone = data.aws_availability_zones.available.names[0]
   # size should be configured per requirements for each environment, we have to choose and disk type
-  size = 10
+  size = var.graffiti_redis_disk_size[terraform.workspace]
   type = "gp3"
   tags = local.graffiti_redis_tags
 }
