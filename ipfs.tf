@@ -13,8 +13,8 @@ module "ipfs-sg" {
 
   ingress_with_cidr_blocks = [
     {
-      from_port   = 4001
-      to_port     = 4001
+      from_port   = 5001
+      to_port     = 5001
       protocol    = "tcp"
       description = "Ipfs ports"
       cidr_blocks = "0.0.0.0/0"
@@ -48,7 +48,7 @@ resource "aws_volume_attachment" "ipfs" {
 resource "aws_ebs_volume" "ipfs" {
   availability_zone = data.aws_availability_zones.available.names[0]
   # size should be configured per requirements for each environment, we have to choose and disk type
-  size = 100
+  size = var.ipfs_disk_size[terraform.workspace]
   type = "gp3"
   tags = local.ipfs_tags
 }
