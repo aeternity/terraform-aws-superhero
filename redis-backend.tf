@@ -12,8 +12,25 @@ module "superhero-backend-redis-sg" {
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 
   ingress_cidr_blocks = [data.terraform_remote_state.vpc.outputs.vpc_cidr_block]
-  ingress_rules       = ["redis-tcp"]
-  egress_rules        = ["all-all"]
+
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 9121
+      to_port     = 9121
+      protocol    = "tcp"
+      description = "Redis exporter ports"
+      cidr_blocks = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+    },
+    {
+      from_port   = 9100
+      to_port     = 9100
+      protocol    = "tcp"
+      description = "Node exporter ports"
+      cidr_blocks = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+    },
+  ]
+  ingress_rules = ["redis-tcp"]
+  egress_rules  = ["all-all"]
 
   tags = local.backend_redis_tags
 }
