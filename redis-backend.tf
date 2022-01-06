@@ -29,7 +29,7 @@ module "superhero-backend-redis-sg" {
       cidr_blocks = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
     },
   ]
-  ingress_rules = ["redis-tcp"]
+  ingress_rules = ["redis-tcp", "ssh-tcp"]
   egress_rules  = ["all-all"]
 
   tags = local.backend_redis_tags
@@ -40,7 +40,7 @@ module "superhero-backend-redis" {
   version = "3.2.0"
 
   name                   = local.backend_redis_name
-  key_name               = "temp"
+  key_name               = "bastion"
   instance_type          = "t2.medium"
   ami                    = "ami-049dba36e59403eff"
   subnet_id              = data.terraform_remote_state.vpc.outputs.private_subnets[0]

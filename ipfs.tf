@@ -20,8 +20,9 @@ module "ipfs-sg" {
       cidr_blocks = "0.0.0.0/0"
     },
   ]
+  ingress_cidr_blocks = [data.terraform_remote_state.vpc.outputs.vpc_cidr_block]
+  ingress_rules = ["ssh-tcp"]
   egress_rules = ["all-all"]
-
   tags = local.ipfs_tags
 }
 
@@ -30,7 +31,7 @@ module "ipfs" {
   version = "3.2.0"
 
   name                   = local.ipfs_name
-  key_name               = "temp"
+  key_name               = "bastion"
   instance_type          = "t2.medium"
   ami                    = "ami-0eda1419e30a5a080"
   subnet_id              = data.terraform_remote_state.vpc.outputs.public_subnets[0]
