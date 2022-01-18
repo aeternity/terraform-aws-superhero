@@ -24,5 +24,5 @@ module "opensearch" {
   hot_instance_count      = var.hot_instance_count[terraform.workspace]
   availability_zones      = var.availability_zones[terraform.workspace]
   master_user_name        = "es-admin"
-  master_user_password    = var.master_user_password[terraform.workspace]
+  master_user_password    = var.opensearch_master_user_password[terraform.workspace]
 }

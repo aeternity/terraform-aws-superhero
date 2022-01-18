@@ -2,7 +2,7 @@ variable "postgres_passwd" {
   type = map(any)
 }
 
-variable "master_user_password" {
+variable "opensearch_master_user_password" {
   type = map(any)
 }
 
