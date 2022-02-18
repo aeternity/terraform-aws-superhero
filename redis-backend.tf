@@ -9,9 +9,9 @@ module "superhero-backend-redis-sg" {
 
   name        = local.backend_redis_name
   description = "Security group for Redis"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.ae_apps.outputs.vpc_id
 
-  ingress_cidr_blocks = [data.terraform_remote_state.vpc.outputs.vpc_cidr_block]
+  ingress_cidr_blocks = [data.terraform_remote_state.ae_apps.outputs.vpc_cidr_block]
 
   ingress_with_cidr_blocks = [
     {
@@ -19,14 +19,14 @@ module "superhero-backend-redis-sg" {
       to_port     = 9121
       protocol    = "tcp"
       description = "Redis exporter ports"
-      cidr_blocks = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+      cidr_blocks = data.terraform_remote_state.ae_apps.outputs.vpc_cidr_block
     },
     {
       from_port   = 9100
       to_port     = 9100
       protocol    = "tcp"
       description = "Node exporter ports"
-      cidr_blocks = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+      cidr_blocks = data.terraform_remote_state.ae_apps.outputs.vpc_cidr_block
     },
   ]
   ingress_rules = ["redis-tcp", "ssh-tcp"]
@@ -43,7 +43,7 @@ module "superhero-backend-redis" {
   key_name               = "bastion"
   instance_type          = "t2.medium"
   ami                    = "ami-049dba36e59403eff"
-  subnet_id              = data.terraform_remote_state.vpc.outputs.private_subnets[0]
+  subnet_id              = data.terraform_remote_state.ae_apps.outputs.private_subnets[0]
   secondary_private_ips  = [var.redis_backend_secondary_private_ips[terraform.workspace]]
   tags                   = local.backend_redis_tags
   vpc_security_group_ids = [module.superhero-backend-redis-sg.security_group_id]

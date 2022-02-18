@@ -9,7 +9,7 @@ module "superhero-backend-postgres-sg" {
 
   name        = local.rds_name
   description = "Superhero backend PostgreSQL example security group"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.ae_apps.outputs.vpc_id
 
   ingress_with_cidr_blocks = [
     {
@@ -17,7 +17,7 @@ module "superhero-backend-postgres-sg" {
       to_port     = 5432
       protocol    = "tcp"
       description = "PostgreSQL access from within VPC"
-      cidr_blocks = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
+      cidr_blocks = data.terraform_remote_state.ae_apps.outputs.vpc_cidr_block
     },
   ]
   egress_rules = ["all-all"]
@@ -48,7 +48,7 @@ module "superhero-backend-postgres" {
   port     = 5432
 
   multi_az               = true
-  subnet_ids             = data.terraform_remote_state.vpc.outputs.private_subnets
+  subnet_ids             = data.terraform_remote_state.ae_apps.outputs.private_subnets
   vpc_security_group_ids = [module.superhero-backend-postgres-sg.security_group_id]
 
   maintenance_window              = "Mon:00:00-Mon:03:00"

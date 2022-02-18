@@ -70,7 +70,7 @@ variable "warm_instance_enabled" {
 
 variable "master_instance_count" {
   default = {
-    "dev" = 1
+    "dev" = "1"
   }
 }
 
@@ -82,12 +82,12 @@ variable "master_instance_enabled" {
 
 variable "hot_instance_count" {
   default = {
-    "dev" = 1
+    "dev" = "1"
   }
 }
 
 variable "availability_zones" {
   default = {
-    "dev" = 1
+    "dev" = "1"
   }
 }

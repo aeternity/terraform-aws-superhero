@@ -9,7 +9,7 @@ module "ipfs-sg" {
 
   name        = local.ipfs_name
   description = "Security group for Ipfs"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_id      = data.terraform_remote_state.ae_apps.outputs.vpc_id
 
   ingress_with_cidr_blocks = [
     {
@@ -20,7 +20,7 @@ module "ipfs-sg" {
       cidr_blocks = "0.0.0.0/0"
     },
   ]
-  ingress_cidr_blocks = [data.terraform_remote_state.vpc.outputs.vpc_cidr_block]
+  ingress_cidr_blocks = [data.terraform_remote_state.ae_apps.outputs.vpc_cidr_block]
   ingress_rules = ["ssh-tcp"]
   egress_rules = ["all-all"]
   tags = local.ipfs_tags
@@ -34,7 +34,7 @@ module "ipfs" {
   key_name               = "bastion"
   instance_type          = "t2.medium"
   ami                    = "ami-0eda1419e30a5a080"
-  subnet_id              = data.terraform_remote_state.vpc.outputs.public_subnets[0]
+  subnet_id              = data.terraform_remote_state.ae_apps.outputs.public_subnets[0]
   secondary_private_ips  = [var.ipfs_secondary_private_ips[terraform.workspace]]
   tags                   = local.ipfs_tags
   vpc_security_group_ids = [module.ipfs-sg.security_group_id]

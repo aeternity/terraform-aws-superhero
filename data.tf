@@ -1,4 +1,4 @@
-data "terraform_remote_state" "vpc" {
+data "terraform_remote_state" "ae_apps" {
   backend = "s3"
 
   config = {
