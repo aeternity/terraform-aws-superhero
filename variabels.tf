@@ -2,10 +2,6 @@ variable "postgres_passwd" {
   type = map(any)
 }
 
-variable "opensearch_master_user_password" {
-  type = map(any)
-}
-
 variable "ipfs_secondary_private_ips" {
   default = {
     "dev" = "10.0.4.4"
@@ -59,35 +55,5 @@ variable "rds_instance_class" {
     "dev" = "db.t2.small"
     "stg" = "db.t2.small"
     "prd" = "db.m5.large"
-  }
-}
-
-variable "warm_instance_enabled" {
-  default = {
-    "dev" = "false"
-  }
-}
-
-variable "master_instance_count" {
-  default = {
-    "dev" = "1"
-  }
-}
-
-variable "master_instance_enabled" {
-  default = {
-    "dev" = "false"
-  }
-}
-
-variable "hot_instance_count" {
-  default = {
-    "dev" = "1"
-  }
-}
-
-variable "availability_zones" {
-  default = {
-    "dev" = "1"
   }
 }

@@ -67,5 +67,5 @@ resource "aws_route53_record" "redis-graffiti" {
   name    = "redis-graffiti.${terraform.workspace}.aepps.com"
   type    = "A"
   ttl     = "300"
-  records = ["172.16.1.101"]
+  records = [var.redis_backend_secondary_private_ips[terraform.workspace]]
 }
