@@ -1,5 +1,5 @@
 locals {
-  rds_name      = "superhero-${terraform.workspace}"
+  rds_name      = "superhero-${local.env_human}"
   postgres_tags = merge({ "Name" : local.rds_name }, local.standard_tags)
 }
 
@@ -34,7 +34,7 @@ module "superhero-backend-postgres" {
   engine_version       = "12.8"
   family               = "postgres12"
   major_engine_version = "12"
-  instance_class       = var.rds_instance_class[terraform.workspace]
+  instance_class       = local.config.rds_instance_class
 
   allocated_storage     = 20
   max_allocated_storage = 100

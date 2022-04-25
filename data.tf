@@ -3,7 +3,7 @@ data "terraform_remote_state" "ae_apps" {
 
   config = {
     bucket = "aeternity-terraform-states"
-    key    = "env://${terraform.workspace}/ae-apps.tfstate"
+    key    = "env://${local.env_human}/ae-apps.tfstate"
     region = "us-east-1"
   }
 }

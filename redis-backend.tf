@@ -1,5 +1,5 @@
 locals {
-  backend_redis_name = "superhero-backend-redis-${terraform.workspace}"
+  backend_redis_name = "superhero-backend-redis-${local.env_human}"
   backend_redis_tags = merge({ "Name" : local.backend_redis_name }, local.standard_tags)
 }
 
@@ -44,7 +44,7 @@ module "superhero-backend-redis" {
   instance_type          = "t2.medium"
   ami                    = "ami-049dba36e59403eff"
   subnet_id              = data.terraform_remote_state.ae_apps.outputs.private_subnets[0]
-  secondary_private_ips  = [var.redis_backend_secondary_private_ips[terraform.workspace]]
+  secondary_private_ips  = [local.config.redis_backend_secondary_private_ips]
   tags                   = local.backend_redis_tags
   vpc_security_group_ids = [module.superhero-backend-redis-sg.security_group_id]
 }
@@ -58,7 +58,7 @@ resource "aws_volume_attachment" "superhero-backend-redis" {
 resource "aws_ebs_volume" "superhero-backend-redis" {
   availability_zone = data.aws_availability_zones.available.names[0]
   # size should be configured per requirements for each environment, we have to choose and disk type
-  size = var.backend_redis_disk_size[terraform.workspace]
+  size = local.config.backend_redis_disk_size
   type = "gp3"
   tags = local.backend_redis_tags
 }
