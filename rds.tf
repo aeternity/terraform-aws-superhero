@@ -44,7 +44,7 @@ module "superhero-backend-postgres" {
   name     = "superhero${local.env_human}"
   username = "postgres"
   #should be handled as secret - working on it - TO DO
-  password = var.postgres_passwd[terraform.workspace]
+  password = local.config.rds_password
   port     = 5432
 
   multi_az               = true

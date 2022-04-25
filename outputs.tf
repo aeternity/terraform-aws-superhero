@@ -17,3 +17,8 @@ output "ipfs_private_ip" {
 output "ipfs_public_ip" {
   value = module.ipfs.public_ip
 }
+
+output "rds_password" {
+  value     = local.config.rds_password
+  sensitive = true
+}

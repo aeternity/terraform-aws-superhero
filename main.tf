@@ -1,5 +1,11 @@
 data "aws_availability_zones" "available" {}
 
+resource "random_string" "rds_password" {
+  length  = 12
+  special = true
+  upper   = true
+}
+
 locals {
   # use this variable as prefix for all resource names. This avoids conflicts with globally unique resources (all resources with a hostname)
   env       = terraform.workspace
@@ -21,6 +27,7 @@ locals {
       backend_redis_disk_size              = "50"
       ipfs_disk_size                       = "50"
       rds_instance_class                   = "db.t2.small"
+      rds_password = random_string.rds_password.result
     }
 
     prd = {
@@ -31,6 +38,7 @@ locals {
       backend_redis_disk_size              = "50"
       ipfs_disk_size                       = "100"
       rds_instance_class                   = "db.m5.large"
+      rds_password = random_string.rds_password.result
     }
 
     stg = {
@@ -41,6 +49,7 @@ locals {
       backend_redis_disk_size              = "50"
       ipfs_disk_size                       = "50"
       rds_instance_class                   = "db.t2.small"
+      rds_password = random_string.rds_password.result
     }
   }
 
