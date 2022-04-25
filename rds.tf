@@ -1,6 +1,6 @@
 locals {
   rds_name      = "superhero-${local.env_human}"
-  postgres_tags = merge({ "Name" : local.rds_name }, local.standard_tags)
+  postgres_tags = merge({ "Name" : local.rds_name }, { "ebs-backup" : "true" }, local.standard_tags)
 }
 
 module "superhero-backend-postgres-sg" {

@@ -1,6 +1,6 @@
 locals {
   ipfs_name = "ipfs-${local.env_human}"
-  ipfs_tags = merge({ "Name" : local.ipfs_name }, local.standard_tags)
+  ipfs_tags = merge({ "Name" : local.ipfs_name }, { "ebs-backup" : "true" }, local.standard_tags)
 }
 
 module "ipfs-sg" {
