@@ -1,6 +1,6 @@
 locals {
   backend_redis_name = "superhero-backend-redis-${local.env_human}"
-  backend_redis_tags = merge({ "Name" : local.backend_redis_name }, { "ebs-backup" : "true" }, local.standard_tags)
+  backend_redis_tags = merge({ "Name" : local.backend_redis_name, "ebs-backup" : "true" }, local.standard_tags)
 }
 
 module "superhero-backend-redis-sg" {

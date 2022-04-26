@@ -1,6 +1,6 @@
 locals {
   graffiti_redis_name = "graffiti-redis-${local.env_human}"
-  graffiti_redis_tags = merge({ "Name" : local.graffiti_redis_name }, { "ebs-backup" : "true" } , local.standard_tags)
+  graffiti_redis_tags = merge({ "Name" : local.graffiti_redis_name, "ebs-backup" : "true" } , local.standard_tags)
 }
 
 module "graffiti-redis-sg" {
