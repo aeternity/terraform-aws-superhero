@@ -46,6 +46,7 @@ module "graffiti-redis" {
   secondary_private_ips  = [local.config.redis_grafitti_secondary_private_ips]
   tags                   = local.graffiti_redis_tags
   vpc_security_group_ids = [module.graffiti-redis-sg.security_group_id]
+  enable_volume_tags = false
 }
 
 resource "aws_volume_attachment" "graffiti-redis" {

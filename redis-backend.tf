@@ -47,6 +47,7 @@ module "superhero-backend-redis" {
   secondary_private_ips  = [local.config.redis_backend_secondary_private_ips]
   tags                   = local.backend_redis_tags
   vpc_security_group_ids = [module.superhero-backend-redis-sg.security_group_id]
+  enable_volume_tags = false
 }
 
 resource "aws_volume_attachment" "superhero-backend-redis" {

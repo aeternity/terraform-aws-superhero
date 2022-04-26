@@ -38,6 +38,7 @@ module "ipfs" {
   secondary_private_ips  = [local.config.ipfs_secondary_private_ips]
   tags                   = local.ipfs_tags
   vpc_security_group_ids = [module.ipfs-sg.security_group_id]
+  enable_volume_tags = false
 }
 
 resource "aws_volume_attachment" "ipfs" {
