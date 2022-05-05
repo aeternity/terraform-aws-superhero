@@ -18,7 +18,12 @@ output "ipfs_public_ip" {
   value = module.ipfs.public_ip
 }
 
-output "rds_password" {
-  value     = local.config.rds_password
+output "superhero_rds_password" {
+  value     = local.config.superhero_rds_password
+  sensitive = true
+}
+
+output "dex_rds_password" {
+  value     = local.config.dex_rds_password
   sensitive = true
 }
