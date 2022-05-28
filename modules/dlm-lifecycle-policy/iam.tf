@@ -1,6 +1,6 @@
 # Create the iam role
 resource "aws_iam_role" "dlm_lifecycle_role" {
-  name                = var.iam_role_name
+  name                = "${var.name_prefix}-${var.iam_role_name}"
   assume_role_policy  = <<EOF
 {
   "Version": "2012-10-17",
