@@ -1,6 +1,5 @@
 module "ebs-backup-policy" {
-  source = "github.com/fpco/terraform-aws-foundation//modules/dlm-lifecycle-policy"
-
+  source = "./modules/dlm-lifecycle-policy"
   name_prefix = "superhero-${local.env_human}"
   description = "DLM lifecycle policy"
   ebs_target_tags = {
