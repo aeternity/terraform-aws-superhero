@@ -8,7 +8,7 @@ resource "random_string" "superhero_rds_password" {
 
 resource "random_string" "dex_rds_password" {
   length  = 12
-  special = true
+  special = false
   upper   = true
 }
 
