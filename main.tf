@@ -23,7 +23,7 @@ locals {
     "github-repo" = "terraform-aws-superhero"
     "github-org"  = "aeternity"
   }
-  
+
   env_config = {
     dev = {
       ipfs_secondary_private_ips           = "10.0.4.4"
@@ -33,8 +33,8 @@ locals {
       backend_redis_disk_size              = "50"
       ipfs_disk_size                       = "50"
       rds_instance_class                   = "db.t2.small"
-      superhero_rds_password = random_string.superhero_rds_password.result
-      dex_rds_password = random_string.dex_rds_password.result
+      superhero_rds_password               = random_string.superhero_rds_password.result
+      dex_rds_password                     = random_string.dex_rds_password.result
     }
 
     prd = {
@@ -45,8 +45,10 @@ locals {
       backend_redis_disk_size              = "50"
       ipfs_disk_size                       = "100"
       rds_instance_class                   = "db.m5.large"
-      superhero_rds_password = random_string.superhero_rds_password.result
-      dex_rds_password = random_string.dex_rds_password.result
+      superhero_rds_password               = random_string.superhero_rds_password.result
+      dex_rds_password                     = random_string.dex_rds_password.result
+      testnet_disk_size                    = "200"
+      testnet_root_disk_size               = "200"
     }
 
     stg = {
@@ -57,8 +59,8 @@ locals {
       backend_redis_disk_size              = "50"
       ipfs_disk_size                       = "50"
       rds_instance_class                   = "db.t2.small"
-      superhero_rds_password = random_string.superhero_rds_password.result
-      dex_rds_password = random_string.dex_rds_password.result
+      superhero_rds_password               = random_string.superhero_rds_password.result
+      dex_rds_password                     = random_string.dex_rds_password.result
     }
   }
 

@@ -27,3 +27,7 @@ output "dex_rds_password" {
   value     = local.config.dex_rds_password
   sensitive = true
 }
+
+output "testnet_public_ip" {
+  value = module.testnet.public_ip
+}
