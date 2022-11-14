@@ -53,7 +53,7 @@ module "testnet" {
 
   name                   = local.testnet_name
   key_name               = "bastion"
-  instance_type          = "m5.large"
+  instance_type          = "m5.4xlarge"
   ami                    = "ami-02058f44341e7f54e"
   subnet_id              = data.terraform_remote_state.ae_apps.outputs.public_subnets[0]
   tags                   = local.testnet_tags
