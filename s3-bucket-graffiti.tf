@@ -16,6 +16,6 @@ module "graffiti_s3_user" {
   namespace    = "aeternity"
   stage        = "${local.env_human}"
   name         = "graffiti-backend-s3"
-  s3_actions   = ["s3:GetObject", "s3:PutObject"]
-  s3_resources = ["${module.s3_bucket_graffiti.s3_bucket_arn}/*"]
+  s3_actions   = ["s3:GetObject", "s3:PutObject", "s3:ListBucket"]
+  s3_resources = ["${module.s3_bucket_graffiti.s3_bucket_arn}/*", "${module.s3_bucket_graffiti.s3_bucket_arn}"]
 }
