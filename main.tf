@@ -16,7 +16,21 @@ locals {
   # use this variable as prefix for all resource names. This avoids conflicts with globally unique resources (all resources with a hostname)
   env       = terraform.workspace
   env_human = terraform.workspace
+  
+  env_mapping = {
+    dev    = 0
+    stg    = 0
+    prd    = 1
+  }
 
+   only_in_production_mapping = {
+    dev    = 0
+    stg    = 0
+    prd    = 1
+  }
+
+  only_in_production = local.only_in_production_mapping[terraform.workspace]
+  
   standard_tags = {
     "env"         = local.env
     "project"     = "apps"
@@ -35,6 +49,9 @@ locals {
       rds_instance_class                   = "db.t2.small"
       superhero_rds_password               = random_string.superhero_rds_password.result
       dex_rds_password                     = random_string.dex_rds_password.result
+      testnet_disk_size                    = "20"
+      testnet_root_disk_size               = "20"
+      testnet_instance_type                = "t2.nano" 
     }
 
     prd = {
@@ -49,6 +66,7 @@ locals {
       dex_rds_password                     = random_string.dex_rds_password.result
       testnet_disk_size                    = "200"
       testnet_root_disk_size               = "200"
+      testnet_instance_type                = "m5.4xlarge"
     }
 
     stg = {
@@ -61,6 +79,9 @@ locals {
       rds_instance_class                   = "db.t2.small"
       superhero_rds_password               = random_string.superhero_rds_password.result
       dex_rds_password                     = random_string.dex_rds_password.result
+      testnet_disk_size                    = "20"
+      testnet_root_disk_size               = "20"
+      testnet_instance_type                = "t2.nano"
     }
   }
 

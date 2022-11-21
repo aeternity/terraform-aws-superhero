@@ -31,7 +31,7 @@ module "dex-backend-postgres" {
   identifier = "dex${local.env_human}"
 
   engine               = "postgres"
-  engine_version       = "12.8"
+  engine_version       = "12.11"
   family               = "postgres12"
   major_engine_version = "12"
   instance_class       = local.config.rds_instance_class
