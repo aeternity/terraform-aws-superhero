@@ -43,6 +43,7 @@ locals {
       ipfs_secondary_private_ips           = "10.0.4.4"
       redis_backend_secondary_private_ips  = "10.0.1.11"
       redis_grafitti_secondary_private_ips = "10.0.1.13"
+      statsd_secondary_private_ips         = "10.0.4.21"
       graffiti_redis_disk_size             = "50"
       backend_redis_disk_size              = "50"
       ipfs_disk_size                       = "50"
