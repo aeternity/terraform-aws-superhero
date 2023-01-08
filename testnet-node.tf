@@ -40,6 +40,13 @@ module "testnet-sg" {
       description = "https port"
       cidr_blocks = "0.0.0.0/0"
     },
+    {
+      from_port   = 9102
+      to_port     = 9102
+      protocol    = "tcp"
+      description = "prometheus port"
+      cidr_blocks = "0.0.0.0/0"
+    },
   ]
   ingress_cidr_blocks = [data.terraform_remote_state.ae_apps.outputs.vpc_cidr_block]
   ingress_rules       = ["ssh-tcp"]
