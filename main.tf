@@ -52,7 +52,7 @@ locals {
       dex_rds_password                     = random_string.dex_rds_password.result
       testnet_disk_size                    = "20"
       testnet_root_disk_size               = "20"
-      testnet_instance_type                = "t2.nano" 
+      testnet_instance_type                = "t2.small" 
     }
 
     prd = {
