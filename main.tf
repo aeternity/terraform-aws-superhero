@@ -67,7 +67,8 @@ locals {
       dex_rds_password                     = random_string.dex_rds_password.result
       testnet_disk_size                    = "200"
       testnet_root_disk_size               = "200"
-      testnet_instance_type                = "m5.4xlarge"
+      testnet_instance_type                = "t2.small"
+      statsd_secondary_private_ips         = "172.16.1.122"
     }
 
     stg = {
