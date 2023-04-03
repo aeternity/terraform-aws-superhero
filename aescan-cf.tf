@@ -1,6 +1,6 @@
 module "aescan_cdn" {
+  count = local.only_in_production
   source = "terraform-aws-modules/cloudfront/aws"
-
   aliases = ["aescan.prd.aepps.com"]
 
   comment             = "Aescan CloudFront"
