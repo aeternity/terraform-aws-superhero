@@ -41,8 +41,8 @@ module "testnet-sg" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
-      from_port   = 9102
-      to_port     = 9102
+      from_port   = 9100
+      to_port     = 9100
       protocol    = "tcp"
       description = "prometheus port"
       cidr_blocks = "0.0.0.0/0"
