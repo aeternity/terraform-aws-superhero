@@ -24,7 +24,7 @@ locals {
   }
 
    only_in_production_mapping = {
-    dev    = 0
+    dev    = 1
     stg    = 0
     prd    = 1
   }
