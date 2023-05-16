@@ -1,7 +1,7 @@
 module "aescan_cdn" {
   count = local.only_in_production
   source = "terraform-aws-modules/cloudfront/aws"
-  aliases = ["aescan.prd.aepps.com"]
+  aliases = ["${local.config.cdn_aliases}"] #aescan.prd.aepps.com 
 
   comment             = "Aescan CloudFront"
   enabled             = true
@@ -13,8 +13,8 @@ module "aescan_cdn" {
   create_origin_access_identity = false
   origin = {
     aescan = {
-      domain_name = "prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
-      origin_id = "prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
+      domain_name = local.config.cdn_domain_name #"prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
+      origin_id = local.config.cdn_origin_id #"prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
       custom_origin_config = {
         http_port              = 80
         https_port             = 443
@@ -25,7 +25,7 @@ module "aescan_cdn" {
   }
 
   default_cache_behavior = {
-    target_origin_id           = "prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
+    target_origin_id           = local.config.cdn_target_origin_id #"prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
     viewer_protocol_policy     = "allow-all"
     use_forwarded_values = false
     allowed_methods = ["GET", "HEAD"]
@@ -38,7 +38,7 @@ module "aescan_cdn" {
   }
 
   viewer_certificate = {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:106102538874:certificate/3d041f97-8742-4cea-b58b-91e41fd23177"
+    acm_certificate_arn = local.config.cdn_acm_certificate_arn #"arn:aws:acm:us-east-1:106102538874:certificate/3d041f97-8742-4cea-b58b-91e41fd23177"
     ssl_support_method  = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }

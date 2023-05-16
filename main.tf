@@ -52,7 +52,12 @@ locals {
       dex_rds_password                     = random_string.dex_rds_password.result
       testnet_disk_size                    = "20"
       testnet_root_disk_size               = "20"
-      testnet_instance_type                = "t2.small" 
+      testnet_instance_type                = "t2.small"
+      cdn_aliases = "aescan.dev.aepps.com"
+      cdn_domain_name = "dev-wgt7-traefik-ingress-3137535e34fdb198.elb.eu-central-1.amazonaws.com"
+      cdn_origin_id = "dev-wgt7-traefik-ingress-3137535e34fdb198.elb.eu-central-1.amazonaws.com"
+      cdn_target_origin_id = "dev-wgt7-traefik-ingress-3137535e34fdb198.elb.eu-central-1.amazonaws.com"
+      cdn_acm_certificate_arn = "arn:aws:acm:us-east-1:106102538874:certificate/a04b71bf-79c5-409d-8de5-45c29d9d2bc5"
     }
 
     prd = {
@@ -69,6 +74,11 @@ locals {
       testnet_root_disk_size               = "200"
       testnet_instance_type                = "m5a.large"
       statsd_secondary_private_ips         = "172.16.1.122"
+      cdn_aliases = "aescan.prd.aepps.com"
+      cdn_domain_name = "prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
+      cdn_origin_id = "prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
+      cdn_target_origin_id = "prd-0e9c-traefik-ingress-ee681509e4f99dc7.elb.eu-central-1.amazonaws.com"
+      cdn_acm_certificate_arn = "arn:aws:acm:us-east-1:106102538874:certificate/3d041f97-8742-4cea-b58b-91e41fd23177"
     }
 
     stg = {
